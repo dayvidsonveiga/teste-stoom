@@ -19,14 +19,14 @@ public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "category_sequence")
-    @SequenceGenerator(name = "category_sequence", allocationSize = 500)
+    @SequenceGenerator(name = "category_sequence", sequenceName = "CATEGORY_SEQ")
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "deactivation_date", nullable = false)
+    @Column(name = "deactivation_date")
     private Instant deactivationDate;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.DETACH)

@@ -19,7 +19,7 @@ public class Brand {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "brand_sequence")
-    @SequenceGenerator(name = "brand_sequence", allocationSize = 500)
+    @SequenceGenerator(name = "brand_sequence", sequenceName = "BRAND_SEQ")
     @Column(name = "id")
     private Long id;
 

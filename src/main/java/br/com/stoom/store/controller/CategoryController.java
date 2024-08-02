@@ -29,7 +29,7 @@ public class CategoryController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CategoryResponseDTO> listCategory(@PathVariable("id") Long categoryId) {
+    public ResponseEntity<CategoryResponseDTO> listCategoryById(@PathVariable("id") Long categoryId) {
         var readCategoryResponseDTO = categoryService.listCategoryById(categoryId);
         return ResponseEntity.status(HttpStatus.OK).body(readCategoryResponseDTO);
     }

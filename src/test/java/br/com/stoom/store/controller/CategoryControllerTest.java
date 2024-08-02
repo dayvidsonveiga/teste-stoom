@@ -57,13 +57,13 @@ class CategoryControllerTest {
     }
 
     @Test
-    void testListCategory() {
+    void testListCategoryById() {
         CategoryResponseDTO categoryResponseDTO = new CategoryResponseDTO();
         categoryResponseDTO.setId(1L);
 
         when(categoryService.listCategoryById(1L)).thenReturn(categoryResponseDTO);
 
-        ResponseEntity<CategoryResponseDTO> response = categoryController.listCategory(1L);
+        ResponseEntity<CategoryResponseDTO> response = categoryController.listCategoryById(1L);
 
         assertNotNull(response);
         assertEquals(HttpStatus.OK, response.getStatusCode());
