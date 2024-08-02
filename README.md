@@ -33,14 +33,14 @@ ajuda para construir a nossa loja Stoom, que deve conter as seguintes funcionali
 
 - [Git](https://git-scm.com/)
 - [Docker](https://www.docker.com/)
-- [JDK 8+](https://www.oracle.com/br/java/technologies/javase/jdk8-archive-downloads.html)
+- [JDK 17+](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
 
 # Como executar o projeto
 
 - Clone o projeto.
 
 ```bash
-  git clone https://github.com/dayvidsonveiga/delivery-ms.git
+  git clone https://github.com/dayvidsonveiga/teste-stoom.git
 ```
 
 - Abra um terminal na raiz do projeto e execute o comando abaixo para iniciar o banco de dados FireBird no docker.
@@ -54,33 +54,6 @@ ajuda para construir a nossa loja Stoom, que deve conter as seguintes funcionali
 - Execute o arquivo com a classe main DeliveryMsApplication.java
 
 - Acesse a interface dos recursos do backend através do swagger usando o endereço local http://localhost:8080
-- Por padrão apenas as rotas do usuario estão permitidas sem autenticação, para acesso as demais rotas:
-    - Crie um usuário através do endpoint http://localhost:8080/v1/usuario/criar
-
-  ```bash
-    curl -X 'POST' \
-  'http://localhost:8080/v1/usuario/criar' \
-  -H 'accept: */*' \
-  -H 'Content-Type: application/json' \
-  -d '{
-  "email": "nome@gmail.com",
-  "pass": "12345"}'
-  ```
-    - Gere o token de autenticação realizando o login com os dados criado através do
-      endpoint http://localhost:8080/v1/usuario/login
-  ```bash
-    curl -X 'POST' \
-  'http://localhost:8080/v1/usuario/login' \
-  -H 'accept: */*' \
-  -H 'Content-Type: application/json' \
-  -d '{
-  "email": "nome@gmail.com",
-  "pass": "12345"}'
-  ```
-    - Após realizar a requisição ira retorna um token de acesso, copie todo o token: Bearer
-      eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJk....
-    - E insira no botão de Authorize que fica na parte superior do Swagger
-    - Agora você possui acesso a todas as rotas
 
 # Rotas
 
