@@ -3,6 +3,7 @@ package br.com.stoom.store.model;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "tb_products")
 public class Product {
 
     @Id

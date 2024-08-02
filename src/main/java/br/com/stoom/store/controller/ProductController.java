@@ -1,7 +1,8 @@
 package br.com.stoom.store.controller;
 
-import br.com.stoom.store.business.ProductBO;
+import br.com.stoom.store.business.ProductService;
 import br.com.stoom.store.model.Product;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,12 +11,12 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
-@RequestMapping("/api/products")
+@RestController
+@RequestMapping("/api/v1/products")
+@AllArgsConstructor
 public class ProductController {
 
-    @Autowired
-    private ProductBO productService;
+    private ProductService productService;
 
     @GetMapping(value = "/")
     public ResponseEntity<List<Product>> findAll() {

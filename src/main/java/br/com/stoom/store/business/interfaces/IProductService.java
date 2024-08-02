@@ -4,7 +4,7 @@ import br.com.stoom.store.model.Product;
 
 import java.util.List;
 
-public interface IProductBO {
+public interface IProductService {
 
     List<Product> findAll();
 

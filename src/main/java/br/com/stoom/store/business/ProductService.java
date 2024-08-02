@@ -1,17 +1,18 @@
 package br.com.stoom.store.business;
 
-import br.com.stoom.store.business.interfaces.IProductBO;
+import br.com.stoom.store.business.interfaces.IProductService;
 import br.com.stoom.store.model.Product;
 import br.com.stoom.store.repository.ProductRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class ProductBO implements IProductBO {
+@AllArgsConstructor
+public class ProductService implements IProductService {
 
-    @Autowired
     private ProductRepository productRepository;
 
     @Override
