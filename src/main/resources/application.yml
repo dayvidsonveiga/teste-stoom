@@ -3,6 +3,12 @@ server:
   servlet:
     context-path: /
 
+spring-doc:
+  swagger-ui:
+    path: /
+    tagsSorter: alpha
+    operationsSorter: method
+
 spring:
 
   application:
