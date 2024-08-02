@@ -1,30 +1,48 @@
 package br.com.stoom.store.controller;
 
-import br.com.stoom.store.business.ProductService;
-import br.com.stoom.store.model.Product;
-import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import br.com.stoom.store.business.interfaces.IProductService;
+import br.com.stoom.store.dto.product.CreateProductDTO;
+import br.com.stoom.store.dto.product.ProductResponseDTO;
+import br.com.stoom.store.dto.product.UpdateProductStatusDTO;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/products")
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ProductController {
 
-    private ProductService productService;
+    private final IProductService productService;
 
-    @GetMapping(value = "/")
-    public ResponseEntity<List<Product>> findAll() {
-        List<Product> p = productService.findAll();
-        if(!p.isEmpty())
-            return new ResponseEntity<>(p, HttpStatus.OK);
-        else
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    @PostMapping
+    public ResponseEntity<ProductResponseDTO> createProduct(@RequestBody @Valid CreateProductDTO createProductDTO) {
+        var productResponseDTO = productService.createProduct(createProductDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(productResponseDTO);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductResponseDTO> listProductById(@PathVariable("id") Long productId) {
+        var productResponseDTO = this.productService.listProductById(productId);
+        return ResponseEntity.status(HttpStatus.OK).body(productResponseDTO);
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<ProductResponseDTO>> listAllProducts(@RequestParam(name = "page", defaultValue = "0") Integer page,
+                                                                    @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize) {
+        var productResponseDTOS = productService.listAllProducts(PageRequest.of(page, pageSize));
+        return ResponseEntity.status(HttpStatus.OK).body(productResponseDTOS);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ProductResponseDTO> updateProductStatus(@PathVariable("id") Long productId,
+                                                                  @RequestBody @Valid UpdateProductStatusDTO updateProductStatusDTO) {
+        var productResponseDTO = productService.updateProductStatus(productId, updateProductStatusDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(productResponseDTO);
     }
 
 }
