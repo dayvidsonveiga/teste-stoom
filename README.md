@@ -37,17 +37,23 @@ ajuda para construir a nossa loja Stoom, que deve conter as seguintes funcionali
 
 # Como executar o projeto
 
-- Clone o projeto.
+- Clone o projeto:
 
 ```bash
   git clone https://github.com/dayvidsonveiga/teste-stoom.git
 ```
 
-- Abra um terminal na pasta docker localizada na raiz do projeto e execute o comando abaixo para iniciar o banco de
-  dados e a aplicação no docker.
+- Abra um terminal na raiz do projeto e execute o comando abaixo para gerar o <b>.jar</b> da aplicação:
 
 ```bash
-  docker-compose up -d
+    mvn clean install -Dskiptests
+```
+
+- Em seguida navegue até a pasta <b>docker</b> localizada na raiz do projeto e inicialize os containers docker com o
+  comando:
+
+```bash
+  cd docker && docker-compose up -d
 ```
 
 - Acesse a interface dos recursos do backend através do swagger usando o endereço local http://localhost:8080
