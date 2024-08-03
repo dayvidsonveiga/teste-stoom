@@ -10,6 +10,9 @@ import br.com.stoom.store.repository.CategoryRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -25,6 +28,7 @@ public class CategoryService implements ICategoryService {
 
     @Override
     @Transactional
+    @CachePut(value = "categories", key = "#result.id")
     public CategoryResponseDTO createCategory(CreateCategoryDTO createCategoryDTO) {
         try {
             log.info("Creating category...");
@@ -40,6 +44,7 @@ public class CategoryService implements ICategoryService {
     }
 
     @Override
+    @Cacheable(value = "categories", key = "#categoryId")
     public CategoryResponseDTO listCategoryById(Long categoryId) {
         try {
             log.info("Listing category by ID: {}", categoryId);
@@ -71,6 +76,7 @@ public class CategoryService implements ICategoryService {
 
     @Override
     @Transactional
+    @CacheEvict(value = "categories", allEntries = true)
     public CategoryResponseDTO updateCategoryStatus(Long categoryId, UpdateCategoryStatusDTO updateCategoryStatusDTO) {
         try {
             log.info("Updating category status for ID: {}", categoryId);

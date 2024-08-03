@@ -9,6 +9,9 @@ import br.com.stoom.store.repository.ProductRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -26,6 +29,7 @@ public class ProductService implements IProductService {
 
     @Override
     @Transactional
+    @CachePut(value = "products", key = "#result.id")
     public ProductResponseDTO createProduct(CreateProductDTO createProductRequestDTO) {
         try {
             log.info("Creating product...");
@@ -44,6 +48,7 @@ public class ProductService implements IProductService {
     }
 
     @Override
+    @Cacheable(value = "products", key = "#productId")
     public ProductResponseDTO listProductById(Long productId) {
         try {
             log.info("Listing product by ID: {}", productId);
@@ -61,6 +66,7 @@ public class ProductService implements IProductService {
     }
 
     @Override
+    @Cacheable(value = "products", key = "#pageRequest.toString()")
     public Page<ProductResponseDTO> listAllProducts(PageRequest pageRequest) {
         try {
             log.info("Listing all products with page request: {}", pageRequest);
@@ -75,6 +81,7 @@ public class ProductService implements IProductService {
 
     @Override
     @Transactional
+    @CacheEvict(value = "products", allEntries = true)
     public ProductResponseDTO updateProductStatus(Long productId, UpdateProductStatusDTO updateProductStatusDTO) {
         try {
             log.info("Updating product status for ID: {}", productId);
@@ -104,6 +111,7 @@ public class ProductService implements IProductService {
     }
 
     @Override
+    @Cacheable(value = "productsByBrand", key = "#brandId + '-' + #pageRequest.toString()")
     public Page<ProductResponseDTO> listAllProductsByBrand(Long brandId, PageRequest pageRequest) {
         try {
             log.info("Listing all products by brand ID: {}", brandId);
@@ -118,6 +126,7 @@ public class ProductService implements IProductService {
     }
 
     @Override
+    @Cacheable(value = "productsByCategory", key = "#categoryId + '-' + #pageRequest.toString()")
     public Page<ProductResponseDTO> listAllProductsByCategory(Long categoryId, PageRequest pageRequest) {
         try {
             log.info("Listing all products by category ID: {}", categoryId);

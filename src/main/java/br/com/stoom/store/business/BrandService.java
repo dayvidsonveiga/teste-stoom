@@ -10,6 +10,9 @@ import br.com.stoom.store.repository.BrandRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -25,6 +28,7 @@ public class BrandService implements IBrandService {
 
     @Override
     @Transactional
+    @CachePut(value = "brands", key = "#result.id")
     public BrandResponseDTO createBrand(CreateBrandDTO createBrandDTO) {
         try {
             log.info("Creating brand...");
@@ -40,6 +44,7 @@ public class BrandService implements IBrandService {
     }
 
     @Override
+    @Cacheable(value = "brands", key = "#brandId")
     public BrandResponseDTO listBrandById(Long brandId) {
         try {
             log.info("Listing brand by ID: {}", brandId);
@@ -71,6 +76,7 @@ public class BrandService implements IBrandService {
 
     @Override
     @Transactional
+    @CacheEvict(value = "brands", allEntries = true)
     public BrandResponseDTO updateBrandStatus(Long brandId, UpdateBrandStatusDTO updateBrandStatusDTO) {
         try {
             log.info("Updating brand status for ID: {}", brandId);
