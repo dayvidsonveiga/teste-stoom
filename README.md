@@ -43,15 +43,12 @@ ajuda para construir a nossa loja Stoom, que deve conter as seguintes funcionali
   git clone https://github.com/dayvidsonveiga/teste-stoom.git
 ```
 
-- Abra um terminal na raiz do projeto e execute o comando abaixo para iniciar o banco de dados FireBird no docker.
+- Abra um terminal na pasta docker localizada na raiz do projeto e execute o comando abaixo para iniciar o banco de
+  dados e a aplicação no docker.
 
 ```bash
-  cd docker && docker-compose up -d
+  docker-compose up -d
 ```
-
-- Abra a IDE de sua preferência e importe o projeto clonado e aguarde o download de todas dependências do projeto
-
-- Execute o arquivo com a classe main DeliveryMsApplication.java
 
 - Acesse a interface dos recursos do backend através do swagger usando o endereço local http://localhost:8080
 
