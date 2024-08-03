@@ -6,6 +6,7 @@ import br.com.stoom.store.dto.product.ProductResponseDTO;
 import br.com.stoom.store.dto.product.UpdateProductStatusDTO;
 import br.com.stoom.store.exception.ProductNotFoundException;
 import br.com.stoom.store.repository.ProductRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -22,6 +23,7 @@ public class ProductService implements IProductService {
     private final CategoryService categoryService;
 
     @Override
+    @Transactional
     public ProductResponseDTO createProduct(CreateProductDTO createProductRequestDTO) {
         validateBrand(createProductRequestDTO.getBrandId());
         validateCategory(createProductRequestDTO.getCategoryId());
@@ -45,6 +47,7 @@ public class ProductService implements IProductService {
     }
 
     @Override
+    @Transactional
     public ProductResponseDTO updateProductStatus(Long productId, UpdateProductStatusDTO updateProductStatusDTO) {
         var product = productRepository.findById(productId)
                 .orElseThrow(() -> new ProductNotFoundException(productId));
